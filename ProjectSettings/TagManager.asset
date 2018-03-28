@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Spawn
   - Cloud
+  - Debug
+  - Projectile
+  - Spawner
+  - Rows
+  - GM
   layers:
   - Default
   - TransparentFX

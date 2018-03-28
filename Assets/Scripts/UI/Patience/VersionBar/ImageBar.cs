@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class ImageBar : MonoBehaviour {
 
+    private float beginSizeX;
+    private float beginSizeY;
     public const int maxPatience = 100;
     public Data data;
     public RectTransform patiencebar;
-    public bool testing;
+    public bool testing = true;
     public float amount = -1;
     public float nextUpdate = 1;
 
 	// Use this for initialization
 	void Start () {
-        data = GameObject.FindGameObjectWithTag("Data").GetComponent<Data>();
+        beginSizeX = patiencebar.sizeDelta.x;
+        beginSizeY = patiencebar.sizeDelta.y;
+		data = FindObjectOfType<Data>();
         if (data.currentPatience <= 0)
         {
             data.currentPatience = maxPatience;
@@ -23,7 +27,11 @@ public class ImageBar : MonoBehaviour {
     public void add(float amount)
     {
         data.currentPatience += amount;
-        patiencebar.sizeDelta = new Vector2(data.currentPatience * 1, patiencebar.sizeDelta.y);
+        if (data.currentPatience > maxPatience)
+        {
+            data.currentPatience = maxPatience;
+        }
+        patiencebar.sizeDelta = new Vector2(data.currentPatience * beginSizeX / maxPatience, beginSizeY);
     }
 
     public IEnumerator CountDown()

@@ -9,29 +9,36 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private float maximumRatio = 1.5f;
 
-    private Rigidbody2D theRigidbody2DParticle;
-    private SpringJoint2D theSpringJoint2D;
+    private Rigidbody2D theRigidbody2DProjectile;
     private SpriteRenderer theSpriteRenderer;
+    private SpringJoint2D theSpringJoint2D;
 
     private bool isPressed = false;
     private bool isRendering;
 
     public Anchor theAnchorScript;
-    private Touch theTouchScript;
+    /*public Touch theTouchScript;*/
+    public Instantiate theInstantiateScript;
+    public Reload theReloadScript;
 
     private Vector2 mousePosition;
 
-    void Start ()
+    public GameObject theGameManager;
+
+    void Start()
     {
-        theRigidbody2DParticle = GetComponent<Rigidbody2D>();
+        theRigidbody2DProjectile = GetComponent<Rigidbody2D>();
         theSpringJoint2D = GetComponent<SpringJoint2D>();
         theSpriteRenderer = GetComponent<SpriteRenderer>();
 
+        theGameManager = GameObject.FindGameObjectWithTag("GM");
+        theInstantiateScript = theGameManager.GetComponent<Instantiate>();
+        theReloadScript = theGameManager.GetComponent<Reload>();
+
         theSpringJoint2D.frequency = 5f;
-        theSpringJoint2D.enableCollision = false;
 	}
 	
-	void Update ()
+	void Update()
     {
         if (isPressed)
         {
@@ -39,11 +46,11 @@ public class Projectile : MonoBehaviour
 
             if (Vector3.Distance(mousePosition, theAnchorScript.theRigidbody2DAnchor.position) > maximumRatio)
             {
-                theRigidbody2DParticle.position = theAnchorScript.theRigidbody2DAnchor.position + (mousePosition - theAnchorScript.theRigidbody2DAnchor.position).normalized * maximumRatio;
+                theRigidbody2DProjectile.position = theAnchorScript.theRigidbody2DAnchor.position + (mousePosition - theAnchorScript.theRigidbody2DAnchor.position).normalized * maximumRatio;
             }
             else
             {
-                theRigidbody2DParticle.position = mousePosition;
+                theRigidbody2DProjectile.position = mousePosition;
             }
         }
 
@@ -54,22 +61,27 @@ public class Projectile : MonoBehaviour
     {
         isPressed = true;
         /*Debug.Log("Mouse click down");*/
-        theRigidbody2DParticle.isKinematic = true;
+        theRigidbody2DProjectile.isKinematic = true;
     }
 
     void OnMouseUp()
     {
         isPressed = false;
         /*Debug.Log("Mouse click up");*/
-        theRigidbody2DParticle.isKinematic = false;
+        theRigidbody2DProjectile.isKinematic = false;
 
         StartCoroutine(ReleaseTheProjectile());
     }
 
-    void OnDeath()
+    public void OnDeath()
     {
-        Debug.Log("Death");
-        Destroy(this.gameObject);
+        /*Debug.Log("Death");*/
+
+        this.gameObject.SetActive(false);
+
+        /*theInstantiateScript.GetNewProjectile();*/
+        theReloadScript.ReloadProcess();
+
     }
 
     void CheckForOffScreen()
@@ -98,7 +110,5 @@ public class Projectile : MonoBehaviour
             OnDeath();
         }
     }
-
-
 
 }

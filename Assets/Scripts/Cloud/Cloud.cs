@@ -5,10 +5,12 @@ using UnityEngine;
 public class Cloud : MonoBehaviour {
 
 	public float moveSpeed = 1;
-	public float curMoveSpeed;
 	public enum DirOption { none, right, left };
 	public DirOption direction;
-	public bool move = true;
+	public bool move = false;
+	public bool shield = true;
+
+	DebugManager debug;
 
 	// public string color;
 
@@ -16,10 +18,14 @@ public class Cloud : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
+		shield = true;
+
+		debug = GameObject.FindGameObjectWithTag("Debug").GetComponent<DebugManager>();
 	}
 
 	// Update is called once per frame
 	void Update() {
+		moveSpeed = debug.cloudMoveSpeed;
 	}
 
 	public string CheckDir()
@@ -35,54 +41,15 @@ public class Cloud : MonoBehaviour {
 		}
 	}
 
-	public void SetSpawnPos(int rowNumber, string side)
+	public void MoveTo(Vector3 position)
 	{
-		switch (side)
-		{
-			case "left":
-
-				break;
-			case "right":
-
-				break;
-			default:
-				side = "left";
-				break;
-		}
-	}
-
-	private int CheckRowNum(int rowNumber)
-	{
-		switch(rowNumber)
-		{
-			case 1:
-				
-				break;
-			case 2:
-
-				break;
-			case 3:
-
-				break;
-			case 4:
-
-				break;
-			case 5:
-
-				break;
-			case 6:
-
-				break;
-			case 7:
-
-				break;
-		}
-		return rowNumber;
-	}
-
-	public void GoTo(Vector3 position)
-	{
-		move = false;
 		transform.position = position;
 	}
+
+	public IEnumerator ShieldTimer(float shieldTime)
+	{
+		yield return new WaitForSeconds(shieldTime);
+		shield = false;
+	}
+
 }

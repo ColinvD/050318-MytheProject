@@ -5,14 +5,4 @@ using UnityEngine;
 public class Data : MonoBehaviour {
 
     public float currentPatience = 100;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
