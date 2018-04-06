@@ -47,8 +47,9 @@ public class CloudCollision : MonoBehaviour {
 				{
 					if (c.tag == tag)
 					{
-						//Debug.Log(System.Array.IndexOf(spawn.rowsContent, gameObject));
 						//spawn.spawned.Remove(gameObject);
+						//index in row = System.Array.IndexOf(spawn.rowsContent[cloud.rowNumber], cloud.gameObject);
+						spawn.rowsContent[cloud.rowNumber][System.Array.IndexOf(spawn.rowsContent[cloud.rowNumber], cloud.gameObject)] = null;
 						data.IncreasePatience(data.increaseValue);
 						spawn.notSpawned.Add(gameObject);
 						cloud.spawned = false;

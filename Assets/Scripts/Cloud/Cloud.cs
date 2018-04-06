@@ -12,6 +12,7 @@ public class Cloud : MonoBehaviour {
 	public bool spawned = false;
 	public int damage = 1;
 	public float decreaseTime = 2;
+	public int rowNumber;
 
 	DebugManager debug;
 	Data data;

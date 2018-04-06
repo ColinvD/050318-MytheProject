@@ -25,6 +25,7 @@ public class Spawn : MonoBehaviour {
 	private List<GameObject> objects;
 	private GameObject rowContainer;
 	private int test = 1;
+	private int row;
 
 	// Use this for initialization
 	void Start () {
@@ -77,26 +78,24 @@ public class Spawn : MonoBehaviour {
 	{
 		int randomIndex = 0;
 
-		randomIndex = RandomizeArrayIndex(spawns);
-
-		// Remove this if project has no clouds
+		//randomIndex = RandomizeArrayIndex(spawns);
+		
 		if (gameObject.transform.GetChild(0).tag == "Cloud")
 		{
 			Cloud cloud;
 			cloud = gameObject.GetComponent<Cloud>();
-			
+
 			if (!cloud.move)
 			{
-				//Debug.Log("first " + spawns[randomIndex]);
-				//Debug.Log(CheckEmptyRowIndex(rowsContent, CheckRow(spawns[randomIndex])));
-
 				// FUCK YOU WHILE LOOP
-				while (CheckEmptyRowIndex(rowsContent,CheckRow(spawns[randomIndex])) == 100)
+				// checks if there is a empty index on the rows
+				do
 				{
-					//Debug.Log("FULL");
 					randomIndex = RandomizeArrayIndex(spawns);
-				}
-				
+				} while (CheckEmptyRowIndex(rowsContent, CheckRow(spawns[randomIndex])) == 99);
+
+				cloud.rowNumber = row;
+
 				gameObject.transform.position = spawns[randomIndex].transform.position;
 				
 				switch (spawns[randomIndex].transform.parent.name)
@@ -228,6 +227,7 @@ public class Spawn : MonoBehaviour {
 		{
 			if (array[rowNumber][i] == null)
 			{
+				row = rowNumber;
 				return rowIndex = i;
 			}
 		}
@@ -235,7 +235,7 @@ public class Spawn : MonoBehaviour {
 		if (!IsListEmpty(notSpawned))
 		{
 			rowIndex = 99;
-			Debug.Log("Not empty " + test);
+			//Debug.Log("Not empty " + test);
 			test++;
 		}
 		else
