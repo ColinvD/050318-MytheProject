@@ -148,7 +148,7 @@ public class Spawn : MonoBehaviour {
 		}
 		catch
 		{
-			Debug.LogWarning("No clouds to spawn");
+			//Debug.LogWarning("No clouds to spawn");
 		}
 		
 		yield return new WaitForSeconds(spawnTime);
