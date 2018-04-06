@@ -11,6 +11,11 @@ TagManager:
   - Spawner
   - Rows
   - GM
+  - Blue
+  - Red
+  - Yellow
+  - Pink
+  - Row
   layers:
   - Default
   - TransparentFX

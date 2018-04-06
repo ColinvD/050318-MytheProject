@@ -9,11 +9,13 @@ public class CloudCollision : MonoBehaviour {
 
 	Cloud cloud;
 	Spawn spawn;
+	Data data;
 
 	private void Awake()
 	{
 		cloud = GetComponent<Cloud>();
 		spawn = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawn>();
+		data = FindObjectOfType<Data>();
 	}
 
 	// Use this for initialization
@@ -28,24 +30,43 @@ public class CloudCollision : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D c)
 	{
-		
-		if ((c.tag == "Cloud" || c.tag == "Spawn") && !cloud.shield) cloud.move = false;
-		if (c.tag == "Projectile")
+		if (c.transform.childCount > 0)
 		{
-			if (c.GetComponent<SpriteRenderer>().sprite.name == GetComponent<SpriteRenderer>().sprite.name)
+			if (c.transform.childCount == 1)
 			{
-				spawn.spawned.Remove(gameObject);
-				spawn.notSpawned.Add(gameObject);
-				cloud.MoveTo(spawn.spawns[spawn.RandomizeArrayIndex(spawn.spawns)].transform.position);
+				if (c.gameObject.transform.GetChild(0).tag == "Cloud" && !cloud.shield)
+				{
+					cloud.move = false;
+					cloud.spawned = true;
+					StartCoroutine(cloud.DecreasePatience(cloud.damage));
+				}
 			}
-			Destroy(c.gameObject);
-			c.GetComponent<Projectile>().OnDeath();
+			else if (c.transform.childCount == 2)
+			{
+				if (c.gameObject.transform.GetChild(1).tag == "Projectile")
+				{
+					if (c.tag == tag)
+					{
+						//Debug.Log(System.Array.IndexOf(spawn.rowsContent, gameObject));
+						//spawn.spawned.Remove(gameObject);
+						data.IncreasePatience(data.increaseValue);
+						spawn.notSpawned.Add(gameObject);
+						cloud.spawned = false;
+						cloud.MoveTo(spawn.spawns[spawn.RandomizeArrayIndex(spawn.spawns)].transform.position);
+					}
+				}
+			}
+		}
+		else if (c.tag == "Spawn" && !cloud.shield)
+		{
+			cloud.move = false;
+			cloud.spawned = true;
+			StartCoroutine(cloud.DecreasePatience(cloud.damage));
 		}
 	}
 
 	private void OnTriggerStay2D(Collider2D c)
 	{
-		//cloud.shield = true;
 	}
 
 

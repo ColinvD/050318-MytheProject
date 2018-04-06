@@ -5,4 +5,15 @@ using UnityEngine;
 public class Data : MonoBehaviour {
 
     public float currentPatience = 100;
+	public int increaseValue = 5;
+
+	private void Update()
+	{
+		if (currentPatience < 0) currentPatience = 0;
+	}
+
+	public void IncreasePatience(int amount)
+	{
+		currentPatience += amount;
+	}
 }

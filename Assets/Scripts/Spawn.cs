@@ -6,35 +6,34 @@ public class Spawn : MonoBehaviour {
 
 	[Tooltip("The tag of the spawn positions.")]
 	[SerializeField] private string spawnsTag = "Spawn";
-	[Tooltip("The tag of the object(s) that needs to be spawned.")]
-	[SerializeField] private string objectsTag = "Cloud";
+	//[Tooltip("The tag of the object(s) that needs to be spawned.")]
+	//[SerializeField] private string objectsTag = "Cloud";
 	[Tooltip("The tag of the row container object.")]
 	[SerializeField] private string rowContainerTag = "Rows";
 	[Tooltip("How many seconds between each spawn.")]
 	[SerializeField] private float spawnTime = 3;
 	[Tooltip("How many seconds before the shield goes down.")]
 	[SerializeField] private float shieldTime = 1;
-	[SerializeField] private Sprite[] cloudSprites;
-
-	// TODO: 
 
 	public List<GameObject> spawned;
 	public List<GameObject> notSpawned;
 	public GameObject[][] rowsContent;
 	public GameObject[] spawns;
 	public int maxRowQuantity = 4;
+	public bool spawn;
 
-	private GameObject[] objects;
+	private List<GameObject> objects;
 	private GameObject rowContainer;
+	private int test = 1;
 
 	// Use this for initialization
 	void Start () {
 		spawns = GameObject.FindGameObjectsWithTag(spawnsTag);
-		objects = GameObject.FindGameObjectsWithTag(objectsTag);
 		rowContainer = GameObject.FindGameObjectWithTag(rowContainerTag);
 		rowsContent = new GameObject[rowContainer.transform.childCount][];
 		spawned = new List<GameObject>();
 		notSpawned = new List<GameObject>();
+		objects = new List<GameObject>();
 
 		InitArrList();
 		StartCoroutine(SpawnCloud());
@@ -63,6 +62,13 @@ public class Spawn : MonoBehaviour {
 
 		//Debug.Log(list + " count = " + list.Count);
 
+		//for (int i = 0; i < list.Count; i++)
+		//{
+		//	Debug.Log(list[i].name + " at index " + list.IndexOf(list[i]));
+		//}
+
+		//Debug.LogWarning("chosen index " + randomIndex);
+
 		return randomIndex;
 	}
 
@@ -74,27 +80,25 @@ public class Spawn : MonoBehaviour {
 		randomIndex = RandomizeArrayIndex(spawns);
 
 		// Remove this if project has no clouds
-		if (gameObject.tag == "Cloud")
+		if (gameObject.transform.GetChild(0).tag == "Cloud")
 		{
 			Cloud cloud;
 			cloud = gameObject.GetComponent<Cloud>();
 			
 			if (!cloud.move)
 			{
-				Debug.Log("first " + spawns[randomIndex]);
-				Debug.Log(CheckEmptyRowIndex(rowsContent, CheckRow(spawns[randomIndex])));
+				//Debug.Log("first " + spawns[randomIndex]);
+				//Debug.Log(CheckEmptyRowIndex(rowsContent, CheckRow(spawns[randomIndex])));
 
+				// FUCK YOU WHILE LOOP
 				while (CheckEmptyRowIndex(rowsContent,CheckRow(spawns[randomIndex])) == 99)
 				{
-					Debug.Log("FULL");
+					//Debug.Log("FULL");
 					randomIndex = RandomizeArrayIndex(spawns);
-					Debug.Log("second " + randomIndex);
 				}
-
-				//Debug.Log("third " + spawns[randomIndex]);
-
+				
 				gameObject.transform.position = spawns[randomIndex].transform.position;
-
+				
 				switch (spawns[randomIndex].transform.parent.name)
 				{
 					case "Right":
@@ -104,18 +108,22 @@ public class Spawn : MonoBehaviour {
 						cloud.direction = Cloud.DirOption.right;
 						break;
 					default:
-
+						
 						break;
 				}
 
 				cloud.move = true;
+				//Debug.Log("Added " + cloud.name + " to row " + CheckRow(spawns[randomIndex]) + " at index "+ CheckEmptyRowIndex(rowsContent,CheckRow(spawns[randomIndex])));
+
+				if (!IsListEmpty(notSpawned))
+				{
+					AddCloudTo(cloud.gameObject, rowsContent, CheckRow(spawns[randomIndex]));
+				}
+				else
+				{
+					Debug.Log("Empty");
+				}
 			}
-
-
-			// TODO: FIX IF ROW IS FULL
-
-			Debug.Log("Added " + cloud.name + " to row " + CheckRow(spawns[randomIndex]) + " at index "+ CheckEmptyRowIndex(rowsContent,CheckRow(spawns[randomIndex])));
-			AddCloudTo(cloud.gameObject,rowsContent,CheckRow(spawns[randomIndex]));
 		}
 		else
 		{
@@ -123,21 +131,29 @@ public class Spawn : MonoBehaviour {
 		}
 	}
 
-	IEnumerator SpawnCloud()
+	public IEnumerator SpawnCloud()
 	{
-		int randomIndex = RandomizeListIndex(notSpawned);
-		GameObject gameObject = notSpawned[randomIndex];
-		Cloud cloud = gameObject.GetComponent<Cloud>();
+		try
+		{
+			int randomIndex = RandomizeListIndex(notSpawned);
+			GameObject gameObject = notSpawned[randomIndex];
+			Cloud cloud = gameObject.GetComponent<Cloud>();
+			
+			SpawnObject(gameObject);
+			cloud.move = true;
+			StartCoroutine(cloud.ShieldTimer(shieldTime));
 
-		SpawnObject(gameObject);
-		cloud.move = true;
-		StartCoroutine(cloud.ShieldTimer(shieldTime));
-
-		// Update lists to keep track of spawned objects
-		spawned.Add(gameObject);
-		notSpawned.Remove(gameObject);
-
+			// Update lists to keep track of spawned objects
+			//spawned.Add(gameObject);
+			notSpawned.Remove(gameObject);
+		}
+		catch
+		{
+			Debug.LogWarning("No clouds to spawn");
+		}
+		
 		yield return new WaitForSeconds(spawnTime);
+		
 		StartCoroutine(SpawnCloud());
 	}
 
@@ -179,15 +195,23 @@ public class Spawn : MonoBehaviour {
 		}
 		return row;
 	}
-
-	// Initialize arrays & lists
+	
 	public void InitArrList()
 	{
-		for (int i = 0; i < objects.Length; i++)
+		// Initializes all clouds into 'objects[]'
+		for (int i = 0; i < rowContainer.transform.childCount; i++)
 		{
-			notSpawned.Add(objects[i]);
+			for (int j = 0; j < rowContainer.transform.GetChild(i).childCount; j++)
+			{
+				GameObject cloud = rowContainer.transform.GetChild(i).transform.GetChild(j).gameObject;
+				notSpawned.Add(cloud);
+			}
 		}
 
+		// Initializes all clouds into 'notSpawned[]'
+		for (int i = 0; i < objects.Count; i++)	notSpawned.Add(objects[i]);
+
+		// Initializes all rows into 'rowsContent[]'
 		for (int i = 0; i < rowsContent.Length; i++)
 		{
 			rowsContent[i] = new GameObject[maxRowQuantity];
@@ -196,9 +220,10 @@ public class Spawn : MonoBehaviour {
 
 	public int CheckEmptyRowIndex(GameObject[][] array, int rowNumber)
 	{
-		int rowIndex = 0;
 		int i;
+		int rowIndex = 0;
 
+		// Checks if there is empty place on a row
 		for (i = 0; i < array[rowNumber].Length; i++)
 		{
 			if (array[rowNumber][i] == null)
@@ -206,17 +231,43 @@ public class Spawn : MonoBehaviour {
 				return rowIndex = i;
 			}
 		}
+		
+		if (!IsListEmpty(notSpawned))
+		{
+			rowIndex = 99;
+			Debug.Log("Not empty " + test);
+			test++;
+		}
+		else
+		{
+			Debug.Log("Empty");
+			rowIndex = 100;
+		}
 
-		//Debug.Log(i);
-		//Debug.Log(array[rowNumber][i] + " FULL");
-		rowIndex = 99;
+		//Debug.Log(rowNumber + " FULL");
 		return rowIndex;
+	}
+
+	public bool IsListEmpty(List<GameObject> list)
+	{/*
+		// Checks if there is a empty row
+		for (int i = 0; i < list.Count; i++)
+		{
+			if (list[i] != null)
+			{
+				return false;
+			}
+		}
+
+		return true;
+		*/
+		return list.Count > 0 ? false : true;
 	}
 
 	public void AddCloudTo(GameObject cloud, GameObject[][] array, int rowNumber)
 	{
 		int emptyIndex = CheckEmptyRowIndex(rowsContent, rowNumber);
-		Debug.Log("row: " + rowNumber + " index: " + emptyIndex);
+		//Debug.Log("row: " + rowNumber + " index: " + emptyIndex);
 		array[rowNumber][emptyIndex] = cloud;
 	}
 }

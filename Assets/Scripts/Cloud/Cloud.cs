@@ -9,8 +9,12 @@ public class Cloud : MonoBehaviour {
 	public DirOption direction;
 	public bool move = false;
 	public bool shield = true;
+	public bool spawned = false;
+	public int damage = 1;
+	public float decreaseTime = 2;
 
 	DebugManager debug;
+	Data data;
 
 	// public string color;
 
@@ -19,8 +23,9 @@ public class Cloud : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		shield = true;
-
-		debug = GameObject.FindGameObjectWithTag("Debug").GetComponent<DebugManager>();
+		debug = FindObjectOfType<DebugManager>();
+		data = FindObjectOfType<Data>();
+		decreaseTime = 5;
 	}
 
 	// Update is called once per frame
@@ -48,8 +53,24 @@ public class Cloud : MonoBehaviour {
 
 	public IEnumerator ShieldTimer(float shieldTime)
 	{
+		shield = true;
 		yield return new WaitForSeconds(shieldTime);
 		shield = false;
 	}
 
+	public IEnumerator DecreasePatience(int amount)
+	{
+		while (spawned)
+		{
+			//Debug.Log("Decrease");
+			data.currentPatience -= amount;
+			yield return new WaitForSeconds(decreaseTime);
+			StartCoroutine(DecreasePatience(amount));
+		}
+		/*
+		Debug.Log("Decrease");
+		data.currentPatience -= amount;
+		yield return new WaitForSeconds(decreaseTime);
+		StartCoroutine(DecreasePatience(amount));*/
+	}
 }

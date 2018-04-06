@@ -42,7 +42,7 @@ public class Reload : MonoBehaviour
     {
         index = Random.Range(0, projectiles.Length);
         theCurrentProjectile = projectiles[index];
-		Debug.Log(projectiles[index]);
+		//Debug.Log(projectiles[index]);
         Instantiate(theCurrentProjectile);
 
         /*Debug.Log(theCurrentProjectile.name);*/
