@@ -91,7 +91,7 @@ public class Spawn : MonoBehaviour {
 				//Debug.Log(CheckEmptyRowIndex(rowsContent, CheckRow(spawns[randomIndex])));
 
 				// FUCK YOU WHILE LOOP
-				while (CheckEmptyRowIndex(rowsContent,CheckRow(spawns[randomIndex])) == 99)
+				while (CheckEmptyRowIndex(rowsContent,CheckRow(spawns[randomIndex])) == 100)
 				{
 					//Debug.Log("FULL");
 					randomIndex = RandomizeArrayIndex(spawns);
