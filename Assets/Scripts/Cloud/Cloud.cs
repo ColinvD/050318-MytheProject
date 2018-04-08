@@ -10,8 +10,8 @@ public class Cloud : MonoBehaviour {
 	public bool move = false;
 	public bool shield = true;
 	public bool spawned = false;
-	public int damage = 1;
-	public float decreaseTime = 2;
+	public float damage = 0.1f;
+	public float decreaseTime = 5;
 	public int rowNumber;
 
 	DebugManager debug;
@@ -59,7 +59,7 @@ public class Cloud : MonoBehaviour {
 		shield = false;
 	}
 
-	public IEnumerator DecreasePatience(int amount)
+	public IEnumerator DecreasePatience(float amount)
 	{
 		while (spawned)
 		{

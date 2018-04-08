@@ -35,7 +35,7 @@ public class Spawn : MonoBehaviour {
 		spawned = new List<GameObject>();
 		notSpawned = new List<GameObject>();
 		objects = new List<GameObject>();
-
+		
 		InitArrList();
 		StartCoroutine(SpawnCloud());
 	}
@@ -77,8 +77,6 @@ public class Spawn : MonoBehaviour {
 	public void SpawnObject(GameObject gameObject)
 	{
 		int randomIndex = 0;
-
-		//randomIndex = RandomizeArrayIndex(spawns);
 		
 		if (gameObject.transform.GetChild(0).tag == "Cloud")
 		{
@@ -87,8 +85,6 @@ public class Spawn : MonoBehaviour {
 
 			if (!cloud.move)
 			{
-				// FUCK YOU WHILE LOOP
-				// checks if there is a empty index on the rows
 				do
 				{
 					randomIndex = RandomizeArrayIndex(spawns);
@@ -112,7 +108,6 @@ public class Spawn : MonoBehaviour {
 				}
 
 				cloud.move = true;
-				//Debug.Log("Added " + cloud.name + " to row " + CheckRow(spawns[randomIndex]) + " at index "+ CheckEmptyRowIndex(rowsContent,CheckRow(spawns[randomIndex])));
 
 				if (!IsListEmpty(notSpawned))
 				{
