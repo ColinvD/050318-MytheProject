@@ -132,8 +132,9 @@ public class Spawn : MonoBehaviour {
 			int randomIndex = RandomizeListIndex(notSpawned);
 			GameObject gameObject = notSpawned[randomIndex];
 			Cloud cloud = gameObject.GetComponent<Cloud>();
-			
+
 			SpawnObject(gameObject);
+			cloud.spawned = true;
 			cloud.move = true;
 			StartCoroutine(cloud.ShieldTimer(shieldTime));
 

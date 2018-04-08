@@ -129,7 +129,7 @@ Animator:
   m_GameObject: {fileID: 1482809278518606}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 97ff85b2ed532a8499218aaa72b3828c, type: 2}
+  m_Controller: {fileID: 9100000, guid: b807c9264ad115046ab7eee2758c66e5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -166,6 +166,7 @@ MonoBehaviour:
   spawned: 0
   damage: 1
   decreaseTime: 1
+  rowNumber: 0
 --- !u!114 &114655728610326474
 MonoBehaviour:
   m_ObjectHideFlags: 1

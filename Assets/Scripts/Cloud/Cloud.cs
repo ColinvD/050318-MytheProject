@@ -16,6 +16,10 @@ public class Cloud : MonoBehaviour {
 
 	DebugManager debug;
 	Data data;
+	Animator anim;
+	SpriteRenderer sprRen;
+	Sprite startSprite;
+	BoxCollider2D boxCol;
 
 	// public string color;
 
@@ -26,7 +30,12 @@ public class Cloud : MonoBehaviour {
 		shield = true;
 		debug = FindObjectOfType<DebugManager>();
 		data = FindObjectOfType<Data>();
+		anim = GetComponent<Animator>();
+		sprRen = GetComponent<SpriteRenderer>();
+		boxCol = GetComponent<BoxCollider2D>();
 		decreaseTime = 5;
+
+		startSprite = sprRen.sprite;
 	}
 
 	// Update is called once per frame
@@ -59,19 +68,26 @@ public class Cloud : MonoBehaviour {
 		shield = false;
 	}
 
+
+	// TODO: put this function inside the data class
 	public IEnumerator DecreasePatience(float amount)
 	{
-		while (spawned)
-		{
-			//Debug.Log("Decrease");
-			data.currentPatience -= amount;
-			yield return new WaitForSeconds(decreaseTime);
-			StartCoroutine(DecreasePatience(amount));
-		}
-		/*
-		Debug.Log("Decrease");
 		data.currentPatience -= amount;
 		yield return new WaitForSeconds(decreaseTime);
-		StartCoroutine(DecreasePatience(amount));*/
+		if (spawned)
+		{
+			StartCoroutine(DecreasePatience(amount));
+		}
+	}
+
+	public IEnumerator PlayAnimation(string name, float waitTime)
+	{
+		anim.enabled = true;
+		boxCol.enabled = false;
+		anim.Play(name);
+		yield return new WaitForSeconds(waitTime);
+		anim.enabled = false;
+		boxCol.enabled = true;
+		sprRen.sprite = startSprite;
 	}
 }

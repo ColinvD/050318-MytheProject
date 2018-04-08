@@ -37,23 +37,19 @@ public class CloudCollision : MonoBehaviour {
 				if (c.gameObject.transform.GetChild(0).tag == "Cloud" && !cloud.shield)
 				{
 					cloud.move = false;
-					cloud.spawned = true;
 					StartCoroutine(cloud.DecreasePatience(cloud.damage));
 				}
 			}
 			else if (c.transform.childCount == 2)
 			{
-				if (c.gameObject.transform.GetChild(1).tag == "Projectile")
+				if (cloud.spawned)
 				{
-					if (c.tag == tag)
+					if (c.gameObject.transform.GetChild(1).tag == "Projectile")
 					{
-						//spawn.spawned.Remove(gameObject);
-						//index in row = System.Array.IndexOf(spawn.rowsContent[cloud.rowNumber], cloud.gameObject);
-						spawn.rowsContent[cloud.rowNumber][System.Array.IndexOf(spawn.rowsContent[cloud.rowNumber], cloud.gameObject)] = null;
-						data.IncreasePatience(data.increaseValue);
-						spawn.notSpawned.Add(gameObject);
-						cloud.spawned = false;
-						cloud.MoveTo(spawn.spawns[spawn.RandomizeArrayIndex(spawn.spawns)].transform.position);
+						if (c.tag == tag)
+						{
+							StartCoroutine(Die(1f));							
+						}
 					}
 				}
 			}
@@ -61,7 +57,6 @@ public class CloudCollision : MonoBehaviour {
 		else if (c.tag == "Spawn" && !cloud.shield)
 		{
 			cloud.move = false;
-			cloud.spawned = true;
 			StartCoroutine(cloud.DecreasePatience(cloud.damage));
 		}
 	}
@@ -74,5 +69,20 @@ public class CloudCollision : MonoBehaviour {
 	private void OnTriggerExit2D(Collider2D c)
 	{
 		cloud.ShieldTimer(shieldTime);
+	}
+
+	IEnumerator Die(float waitTime)
+	{
+		cloud.move = false;
+		StartCoroutine(cloud.PlayAnimation("Cloud Explosion", waitTime));
+
+		// TODO: fix this error
+		spawn.rowsContent[cloud.rowNumber][System.Array.IndexOf(spawn.rowsContent[cloud.rowNumber], cloud.gameObject)] = null;
+
+		data.IncreasePatience(data.increaseValue);
+		spawn.notSpawned.Add(gameObject);
+		cloud.spawned = false;
+		yield return new WaitForSeconds(waitTime);
+		cloud.MoveTo(spawn.spawns[spawn.RandomizeArrayIndex(spawn.spawns)].transform.position);
 	}
 }
