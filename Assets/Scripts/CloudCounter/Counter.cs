@@ -19,7 +19,8 @@ public class Counter : MonoBehaviour {
 		count.text = curToGo.ToString();
 		if (curToGo < 1)
 		{
-			// win
+			// WIN
+			FindObjectOfType<ChangeScene>().SwitchScene(0);
 		}
 	}
 

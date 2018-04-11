@@ -24,7 +24,6 @@ public class Cloud : MonoBehaviour {
 		}
 	}
 
-	DebugManager debug;
 	Data data;
 	Animator anim;
 	SpriteRenderer sprRen;
@@ -38,7 +37,6 @@ public class Cloud : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		shield = true;
-		debug = FindObjectOfType<DebugManager>();
 		data = FindObjectOfType<Data>();
 		anim = GetComponent<Animator>();
 		sprRen = GetComponent<SpriteRenderer>();
@@ -50,7 +48,6 @@ public class Cloud : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		moveSpeed = debug.cloudMoveSpeed;
 	}
 
 	public string CheckDir()
@@ -83,10 +80,7 @@ public class Cloud : MonoBehaviour {
 	public IEnumerator DecreasePatience(float amount)
 	{
 		data.currentPatience -= amount;
-		if (data.currentPatience < 50)
-		{ 
-			//
-		}
+
 		yield return new WaitForSeconds(decreaseTime);
 		if (spawned)
 		{
