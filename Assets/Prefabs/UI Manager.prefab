@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4644046317113990}
   - component: {fileID: 114145840581323708}
   - component: {fileID: 114653077316927962}
-  - component: {fileID: 114041086712972732}
+  - component: {fileID: 114465066863234418}
   m_Layer: 0
   m_Name: UI Manager
   m_TagString: Untagged
@@ -42,21 +42,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114041086712972732
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1131213490460098}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f019a1ea5fc0cad40bd8cb4da5b27c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerText: {fileID: 0}
-  start: 0
-  time: 0
-  startTime: 120
 --- !u!114 &114145840581323708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,6 +55,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPatience: 100
   increaseValue: 5
+--- !u!114 &114465066863234418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1131213490460098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810d8ff7da3b94649b8b68f35d51de2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curToGo: 30
+  count: {fileID: 0}
 --- !u!114 &114653077316927962
 MonoBehaviour:
   m_ObjectHideFlags: 1

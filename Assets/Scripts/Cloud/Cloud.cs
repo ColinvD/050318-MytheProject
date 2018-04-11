@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Cloud : MonoBehaviour {
 
+	// TODO: make all variables getter & setter
 	public float moveSpeed = 1;
 	public enum DirOption { none, right, left };
 	public DirOption direction;
@@ -13,6 +14,15 @@ public class Cloud : MonoBehaviour {
 	public float damage = 0.001f;
 	public float decreaseTime = 10f;
 	public int rowNumber;
+	private int cloudCount = 1;
+
+	public int CloudCount
+	{
+		get
+		{
+			return cloudCount;
+		}
+	}
 
 	DebugManager debug;
 	Data data;

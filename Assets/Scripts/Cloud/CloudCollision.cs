@@ -10,12 +10,14 @@ public class CloudCollision : MonoBehaviour {
 	Cloud cloud;
 	Spawn spawn;
 	Data data;
+	Counter count;
 
 	private void Awake()
 	{
 		cloud = GetComponent<Cloud>();
 		spawn = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawn>();
 		data = FindObjectOfType<Data>();
+		count = FindObjectOfType<Counter>();
 	}
 
 	// Use this for initialization
@@ -74,6 +76,7 @@ public class CloudCollision : MonoBehaviour {
 	IEnumerator Die(float waitTime)
 	{
 		cloud.move = false;
+		count.DecreaseBy(cloud.CloudCount);
 		StartCoroutine(cloud.PlayAnimation("Cloud Explosion", waitTime));
 
 		// TODO: fix this error
