@@ -34,14 +34,18 @@ public class Cloud : MonoBehaviour {
 
 	//private GameObject[] spawnPositions;
 
-	// Use this for initialization
-	void Start() {
-		moveSpeed = 2;
-		shield = true;
+	private void Awake()
+	{
 		data = FindObjectOfType<Data>();
 		anim = GetComponent<Animator>();
 		sprRen = GetComponent<SpriteRenderer>();
 		boxCol = GetComponent<BoxCollider2D>();
+	}
+
+	// Use this for initialization
+	void Start() {
+		moveSpeed = 2;
+		shield = true;
 		decreaseTime = 5;
 
 		startSprite = sprRen.sprite;

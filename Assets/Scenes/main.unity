@@ -1064,6 +1064,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4026294832659324, guid: 58181d784a0fdc148a81d3f2034d4465,
     type: 2}
   m_PrefabInternal: {fileID: 173488521}
+--- !u!114 &522779470 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114642354470240986, guid: 7749b25255422884c936053259a5d0f4,
+    type: 2}
+  m_PrefabInternal: {fileID: 1651658405}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &532538434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,6 +2364,26 @@ Prefab:
       propertyPath: patiencebar
       value: 
       objectReference: {fileID: 1516512338}
+    - target: {fileID: 114159116046304196, guid: db4ac2b825e04f041a1882f37c8b947e,
+        type: 2}
+      propertyPath: bar
+      value: 
+      objectReference: {fileID: 522779470}
+    - target: {fileID: 114567302871242778, guid: db4ac2b825e04f041a1882f37c8b947e,
+        type: 2}
+      propertyPath: decreaseTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114177128640797900, guid: db4ac2b825e04f041a1882f37c8b947e,
+        type: 2}
+      propertyPath: increaseValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114567302871242778, guid: db4ac2b825e04f041a1882f37c8b947e,
+        type: 2}
+      propertyPath: divider
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db4ac2b825e04f041a1882f37c8b947e, type: 2}
   m_IsPrefabParent: 0

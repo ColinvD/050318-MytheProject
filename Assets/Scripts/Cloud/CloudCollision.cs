@@ -76,6 +76,7 @@ public class CloudCollision : MonoBehaviour {
 	IEnumerator Die(float waitTime)
 	{
 		cloud.move = false;
+		patience.DecreaseTotalDamage(cloud.damage);
 		count.DecreaseBy(cloud.CloudCount);
 		StartCoroutine(cloud.PlayAnimation("Cloud Explosion", waitTime));
 
