@@ -11,6 +11,7 @@ public class CloudCollision : MonoBehaviour {
 	Spawn spawn;
 	Data data;
 	Counter count;
+	Patience patience;
 
 	private void Awake()
 	{
@@ -18,6 +19,7 @@ public class CloudCollision : MonoBehaviour {
 		spawn = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawn>();
 		data = FindObjectOfType<Data>();
 		count = FindObjectOfType<Counter>();
+		patience = FindObjectOfType<Patience>();
 	}
 
 	// Use this for initialization
@@ -39,7 +41,9 @@ public class CloudCollision : MonoBehaviour {
 				if (c.gameObject.transform.GetChild(0).tag == "Cloud" && !cloud.shield)
 				{
 					cloud.move = false;
-					StartCoroutine(cloud.DecreasePatience(cloud.damage));
+					//StartCoroutine(cloud.DecreasePatience(cloud.damage));
+					patience.IncreaseTotalDamage(cloud.damage);
+
 				}
 			}
 			else if (c.transform.childCount == 2)
@@ -50,7 +54,7 @@ public class CloudCollision : MonoBehaviour {
 					{
 						if (c.tag == tag)
 						{
-							StartCoroutine(Die(1f));							
+							StartCoroutine(Die(1f));
 						}
 					}
 				}
@@ -59,14 +63,10 @@ public class CloudCollision : MonoBehaviour {
 		else if (c.tag == "Spawn" && !cloud.shield)
 		{
 			cloud.move = false;
-			StartCoroutine(cloud.DecreasePatience(cloud.damage));
+			//StartCoroutine(cloud.DecreasePatience(cloud.damage));
+			patience.IncreaseTotalDamage(cloud.damage);
 		}
 	}
-
-	private void OnTriggerStay2D(Collider2D c)
-	{
-	}
-
 
 	private void OnTriggerExit2D(Collider2D c)
 	{

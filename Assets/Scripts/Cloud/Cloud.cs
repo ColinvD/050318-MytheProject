@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cloud : MonoBehaviour {
 
 	// TODO: make all variables getter & setter
-	public float moveSpeed = 1;
+	public float moveSpeed = 2;
 	public enum DirOption { none, right, left };
 	public DirOption direction;
 	public bool move = false;
@@ -36,6 +36,7 @@ public class Cloud : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
+		moveSpeed = 2;
 		shield = true;
 		data = FindObjectOfType<Data>();
 		anim = GetComponent<Animator>();

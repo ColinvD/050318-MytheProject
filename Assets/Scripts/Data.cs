@@ -5,7 +5,7 @@ using UnityEngine;
 public class Data : MonoBehaviour {
 
     public float currentPatience = 100;
-	public int increaseValue = 5;
+	public int increaseValue = 3;
 
 	private void Update()
 	{
