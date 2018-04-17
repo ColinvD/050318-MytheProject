@@ -41,18 +41,13 @@ public class Cloud : MonoBehaviour {
 		sprRen = GetComponent<SpriteRenderer>();
 		boxCol = GetComponent<BoxCollider2D>();
 	}
-
-	// Use this for initialization
+	
 	void Start() {
 		moveSpeed = 2;
 		shield = true;
 		decreaseTime = 5;
 
 		startSprite = sprRen.sprite;
-	}
-
-	// Update is called once per frame
-	void Update() {
 	}
 
 	public string CheckDir()
@@ -80,7 +75,6 @@ public class Cloud : MonoBehaviour {
 		shield = false;
 	}
 
-
 	// TODO: put this function inside the data class
 	public IEnumerator DecreasePatience(float amount)
 	{
@@ -102,5 +96,11 @@ public class Cloud : MonoBehaviour {
 		anim.enabled = false;
 		boxCol.enabled = true;
 		sprRen.sprite = startSprite;
+	}
+
+	public void ChangeProperties(float cloudDamage, float cloudMoveSpeed)
+	{
+		damage = cloudDamage;
+		moveSpeed = cloudMoveSpeed;
 	}
 }

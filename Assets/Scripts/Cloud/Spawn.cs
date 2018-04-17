@@ -14,6 +14,8 @@ public class Spawn : MonoBehaviour {
 	[SerializeField] private float spawnTime = 3;
 	[Tooltip("How many seconds before the shield goes down.")]
 	[SerializeField] private float shieldTime = 1;
+	[Tooltip("Forms that the clouds can have this level.")]
+	[SerializeField] private Sprite[] cloudForms;
 
 	public List<GameObject> spawned;
 	public List<GameObject> notSpawned;
@@ -24,6 +26,7 @@ public class Spawn : MonoBehaviour {
 
 	private List<GameObject> objects;
 	private GameObject rowContainer;
+	private Sprite cloudForm;
 	private int test = 1;
 	private int row;
 
@@ -44,18 +47,16 @@ public class Spawn : MonoBehaviour {
 	void Update () {
 	}
 
-	public int RandomizeArrayIndex(GameObject[] array)
+	public int RandomizeArrayIndex<T>(T[] array)
 	{
 		int randomIndex = 0;
 
 		randomIndex = Random.Range(0, array.Length);
 
-		//Debug.Log(array + " length = " + array.Length);
-
 		return randomIndex;
 	}
 
-	public int RandomizeListIndex(List<GameObject> list)
+	public int RandomizeListIndex<T>(List<T> list)
 	{
 		int randomIndex = 0;
 
@@ -113,10 +114,6 @@ public class Spawn : MonoBehaviour {
 				{
 					AddCloudTo(cloud.gameObject, rowsContent, CheckRow(spawns[randomIndex]));
 				}
-				else
-				{
-					Debug.Log("Empty");
-				}
 			}
 		}
 		else
@@ -132,6 +129,10 @@ public class Spawn : MonoBehaviour {
 			int randomIndex = RandomizeListIndex(notSpawned);
 			GameObject gameObject = notSpawned[randomIndex];
 			Cloud cloud = gameObject.GetComponent<Cloud>();
+
+			randomIndex = RandomizeArrayIndex(cloudForms);
+
+			// TODO: continue cloud randomizing by checking index name
 
 			SpawnObject(gameObject);
 			cloud.spawned = true;
@@ -265,5 +266,10 @@ public class Spawn : MonoBehaviour {
 		int emptyIndex = CheckEmptyRowIndex(rowsContent, rowNumber);
 		//Debug.Log("row: " + rowNumber + " index: " + emptyIndex);
 		array[rowNumber][emptyIndex] = cloud;
+	}
+
+	private void InitCloudProperties(int index)
+	{
+
 	}
 }
