@@ -23,17 +23,13 @@ public class Projectile : MonoBehaviour
 
     private Vector2 mousePosition;
 
-    public GameObject theGameManager;
-
     void Start()
     {
         theRigidbody2DProjectile = GetComponent<Rigidbody2D>();
         theSpringJoint2D = GetComponent<SpringJoint2D>();
         theSpriteRenderer = GetComponent<SpriteRenderer>();
-
-        theGameManager = GameObject.FindGameObjectWithTag("GM");
-        theInstantiateScript = theGameManager.GetComponent<Instantiate>();
-        theReloadScript = theGameManager.GetComponent<Reload>();
+		
+		theReloadScript = FindObjectOfType<Reload>();
 
         theSpringJoint2D.frequency = 5f;
 	}

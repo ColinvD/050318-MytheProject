@@ -79,8 +79,7 @@ public class CloudCollision : MonoBehaviour {
 		patience.DecreaseTotalDamage(cloud.damage);
 		count.DecreaseBy(cloud.CloudCount);
 		StartCoroutine(cloud.PlayAnimation("Cloud Explosion", waitTime));
-
-		// TODO: fix this error
+		
 		spawn.rowsContent[cloud.rowNumber][System.Array.IndexOf(spawn.rowsContent[cloud.rowNumber], cloud.gameObject)] = null;
 
 		data.IncreasePatience(data.increaseValue);

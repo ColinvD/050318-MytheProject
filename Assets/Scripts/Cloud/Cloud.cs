@@ -30,10 +30,6 @@ public class Cloud : MonoBehaviour {
 	Sprite startSprite;
 	BoxCollider2D boxCol;
 
-	// public string color;
-
-	//private GameObject[] spawnPositions;
-
 	private void Awake()
 	{
 		data = FindObjectOfType<Data>();
@@ -42,11 +38,12 @@ public class Cloud : MonoBehaviour {
 		boxCol = GetComponent<BoxCollider2D>();
 	}
 	
-	void Start() {
+	void Start()
+	{	
+		// Debug
 		moveSpeed = 2;
-		shield = true;
 		decreaseTime = 5;
-
+		shield = true;
 		startSprite = sprRen.sprite;
 	}
 
@@ -98,8 +95,10 @@ public class Cloud : MonoBehaviour {
 		sprRen.sprite = startSprite;
 	}
 
-	public void ChangeProperties(float cloudDamage, float cloudMoveSpeed)
+	public void ChangeProperties(Sprite cloudSprite, float cloudDamage, float cloudMoveSpeed)
 	{
+		sprRen.sprite = cloudSprite;
+		startSprite = cloudSprite;
 		damage = cloudDamage;
 		moveSpeed = cloudMoveSpeed;
 	}
