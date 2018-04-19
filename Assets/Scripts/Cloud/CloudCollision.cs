@@ -54,7 +54,7 @@ public class CloudCollision : MonoBehaviour {
 					{
 						if (c.tag == tag)
 						{
-							StartCoroutine(Die(1f));
+							StartCoroutine(Die(cloud.ExplosionTime));
 						}
 					}
 				}

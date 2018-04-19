@@ -141,9 +141,7 @@ public class Spawn : MonoBehaviour {
 		Cloud cloud = gameObject.GetComponent<Cloud>();
 
 		randomIndex = RandomizeArrayIndex(GetArrayColor(cloud));
-		InitCloudProperties(cloud, SetCloudType(GetArrayColor(cloud), randomIndex), randomIndex, GetArrayColor(cloud));
-
-		//Debug.Log(GetCloudType(cloud.GetComponent<SpriteRenderer>().sprite));
+		InitCloudProperties(cloud, cloud.SetCloudType(GetArrayColor(cloud), randomIndex), randomIndex, GetArrayColor(cloud));
 
 		SpawnObject(gameObject);
 		cloud.spawned = true;
@@ -246,33 +244,6 @@ public class Spawn : MonoBehaviour {
 	{
 		int emptyIndex = CheckEmptyRowIndex(rowsContent, rowNumber);
 		array[rowNumber][emptyIndex] = cloud;
-	}
-
-	private string SetCloudType(Sprite[] cloudForms, int randomIndex)
-	{
-		string typeName = "";
-
-		typeName = GetCloudType(cloudForms[randomIndex]);
-		
-		return typeName;
-	}
-
-	private string GetCloudType(Sprite cloudSprite)
-	{
-		string spriteName = cloudSprite.name;
-		string typeName = "";
-		for (int i = 0; i < spriteName.Length; i++)
-		{
-			if (spriteName[i] == ' ')
-			{
-				for (int j = 0; j < i; j++)
-				{
-					typeName += spriteName[j];
-				}
-				return typeName;
-			}
-		}
-		return "Type: Not found";
 	}
 
 	private Sprite[] GetArrayColor(Cloud cloud)
