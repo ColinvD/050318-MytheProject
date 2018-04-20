@@ -140,7 +140,6 @@ public class Cloud : MonoBehaviour {
 		}
 		else
 		{
-			Debug.Log(name);
 			anim.enabled = true;
 			anim.Play(name, -1, 0);
 			idle = true;

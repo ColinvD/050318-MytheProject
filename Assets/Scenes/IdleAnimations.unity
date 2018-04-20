@@ -655,19 +655,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4596628483963032, guid: 43ceb0062d14f534db2a09c950981ac8, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4087829437015386, guid: 43ceb0062d14f534db2a09c950981ac8, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4010902894804990, guid: 43ceb0062d14f534db2a09c950981ac8, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4300306710257164, guid: 43ceb0062d14f534db2a09c950981ac8, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114287211166553572, guid: 43ceb0062d14f534db2a09c950981ac8,
         type: 2}
@@ -789,6 +789,50 @@ Prefab:
       propertyPath: idle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 212000807418848488, guid: 43ceb0062d14f534db2a09c950981ac8,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 95fc02f9ff8db6e4da466fce1682abde,
+        type: 3}
+    - target: {fileID: 61961239018316152, guid: 43ceb0062d14f534db2a09c950981ac8,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 4.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 61961239018316152, guid: 43ceb0062d14f534db2a09c950981ac8,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 61133062421115374, guid: 43ceb0062d14f534db2a09c950981ac8,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 4.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 61133062421115374, guid: 43ceb0062d14f534db2a09c950981ac8,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 212750486445144678, guid: 43ceb0062d14f534db2a09c950981ac8,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ff2a6d031554a5a458ffa94ebccfd7f0,
+        type: 3}
+    - target: {fileID: 212893668682131646, guid: 43ceb0062d14f534db2a09c950981ac8,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 86bc2a239dfbcc94da3fb729166aa06e,
+        type: 3}
+    - target: {fileID: 212987275701068458, guid: 43ceb0062d14f534db2a09c950981ac8,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cbb8de14e6c0e6446ad701db47202c85,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43ceb0062d14f534db2a09c950981ac8, type: 2}
   m_IsPrefabParent: 0

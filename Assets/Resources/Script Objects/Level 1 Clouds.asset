@@ -13,17 +13,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   redCloudForms:
   - {fileID: 21300000, guid: ff2a6d031554a5a458ffa94ebccfd7f0, type: 3}
-  - {fileID: 21300000, guid: ff2a6d031554a5a458ffa94ebccfd7f0, type: 3}
+  - {fileID: 21300000, guid: c77caaa2a2b202144b53f724c88b4573, type: 3}
   - {fileID: 21300000, guid: 3b1b225f31800f046beb4233f9d7c76e, type: 3}
   blueCloudForms:
   - {fileID: 21300000, guid: 86bc2a239dfbcc94da3fb729166aa06e, type: 3}
-  - {fileID: 21300000, guid: 86bc2a239dfbcc94da3fb729166aa06e, type: 3}
+  - {fileID: 21300000, guid: b80020c424dce114493e7ef0ae98fcaf, type: 3}
   - {fileID: 21300000, guid: a98b60702d21dae4c9f7085a6880c21e, type: 3}
   pinkCloudForms:
   - {fileID: 21300000, guid: cbb8de14e6c0e6446ad701db47202c85, type: 3}
-  - {fileID: 21300000, guid: cbb8de14e6c0e6446ad701db47202c85, type: 3}
+  - {fileID: 21300000, guid: a18d4a5023a81e744b0a49d3513a776f, type: 3}
   - {fileID: 21300000, guid: 8d2de1de741904746a18dcc2d7c5d3f8, type: 3}
   yellowCloudForms:
   - {fileID: 21300000, guid: 95fc02f9ff8db6e4da466fce1682abde, type: 3}
-  - {fileID: 21300000, guid: 95fc02f9ff8db6e4da466fce1682abde, type: 3}
+  - {fileID: 21300000, guid: 7188040689a960c4689ab70eff5f9792, type: 3}
   - {fileID: 21300000, guid: fe6664087bba3ac42b38d4ecf898d52b, type: 3}
