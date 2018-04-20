@@ -14,16 +14,28 @@ public class Cloud : MonoBehaviour {
 	public float damage = 0.001f;
 	public float decreaseTime = 10f;
 	public int rowNumber;
+	public int columnNumber;
 	private int cloudCount = 1;
 
 	private float explosionTime = 1f;
-	[SerializeField] private bool idle = false;
+	[SerializeField] private bool idle = true;
 
 	public float ExplosionTime
 	{
 		get
 		{
 			return explosionTime;
+		}
+	}
+	public bool Idle
+	{
+		get
+		{
+			return idle;
+		}
+		set
+		{
+			idle = value;
 		}
 	}
 
@@ -51,12 +63,10 @@ public class Cloud : MonoBehaviour {
 	
 	void Start()
 	{
-
 		// Debug
 		moveSpeed = 2;
 		decreaseTime = 5;
 		shield = true;
-		//startSprite = sprRen.sprite;
 	}
 
 	private void Update()
@@ -64,7 +74,6 @@ public class Cloud : MonoBehaviour {
 		if (!idle)
 		{
 			StartCoroutine(PlayAnimation(WhichAnimation(sprRen.sprite), 0));
-			//idle = true;
 		}
 	}
 
@@ -125,8 +134,13 @@ public class Cloud : MonoBehaviour {
 			sprRen.sprite = startSprite;
 			anim.enabled = false;
 		}
-		else if (GetCloudType(sprRen.sprite) == "regen")
+		else if (name == "Cloud Attack")
 		{
+
+		}
+		else
+		{
+			Debug.Log(name);
 			anim.enabled = true;
 			anim.Play(name, -1, 0);
 			idle = true;
@@ -196,7 +210,7 @@ public class Cloud : MonoBehaviour {
 		type = GetCloudType(sprite);
 		color = GetCloudColor(sprite);
 
-		name = type + " " + color + " " + "Idle";
+		name = type + " " + color + " idle";
 
 		return name;
 	}

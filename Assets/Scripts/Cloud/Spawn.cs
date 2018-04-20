@@ -146,6 +146,7 @@ public class Spawn : MonoBehaviour {
 		SpawnObject(gameObject);
 		cloud.spawned = true;
 		cloud.move = true;
+		cloud.Idle = false;
 		StartCoroutine(cloud.ShieldTimer(shieldTime));
 
 		// Update lists to keep track of spawned objects
