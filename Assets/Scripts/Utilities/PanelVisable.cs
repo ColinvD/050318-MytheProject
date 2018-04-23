@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseScreenVisable : MonoBehaviour {
+public class PanelVisable : MonoBehaviour {
 
     [SerializeField]
-    private GameObject pauseScreen;
+    private GameObject screen;
 
 	public void Show()
     {
-        pauseScreen.SetActive(!pauseScreen.active);
+        screen.SetActive(!screen.active);
     }
 }

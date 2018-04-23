@@ -28,11 +28,6 @@ public class AudioChanger : MonoBehaviour {
             soundImage.sprite = image2;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void Change()
     {
@@ -42,7 +37,8 @@ public class AudioChanger : MonoBehaviour {
         {
             SetMusicVolumeOff();
             soundImage.sprite = image2;
-        } else
+        }
+        else
         {
             SetMusicVolumeOn();
             soundImage.sprite = image1;
