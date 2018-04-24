@@ -14,7 +14,30 @@ public class Cloud : MonoBehaviour {
 	public float damage = 0.001f;
 	public float decreaseTime = 10f;
 	public int rowNumber;
+	public int columnNumber;
 	private int cloudCount = 1;
+
+	private float explosionTime = 1f;
+	[SerializeField] private bool idle = true;
+
+	public float ExplosionTime
+	{
+		get
+		{
+			return explosionTime;
+		}
+	}
+	public bool Idle
+	{
+		get
+		{
+			return idle;
+		}
+		set
+		{
+			idle = value;
+		}
+	}
 
 	public int CloudCount
 	{
@@ -24,15 +47,11 @@ public class Cloud : MonoBehaviour {
 		}
 	}
 
+	public Animator anim;
 	Data data;
-	Animator anim;
 	SpriteRenderer sprRen;
 	Sprite startSprite;
 	BoxCollider2D boxCol;
-
-	// public string color;
-
-	//private GameObject[] spawnPositions;
 
 	private void Awake()
 	{
@@ -42,12 +61,20 @@ public class Cloud : MonoBehaviour {
 		boxCol = GetComponent<BoxCollider2D>();
 	}
 	
-	void Start() {
+	void Start()
+	{
+		// Debug
 		moveSpeed = 2;
-		shield = true;
 		decreaseTime = 5;
+		shield = true;
+	}
 
-		startSprite = sprRen.sprite;
+	private void Update()
+	{
+		if (!idle)
+		{
+			StartCoroutine(PlayAnimation(WhichAnimation(sprRen.sprite), 0));
+		}
 	}
 
 	public string CheckDir()
@@ -66,6 +93,14 @@ public class Cloud : MonoBehaviour {
 	public void MoveTo(Vector3 position)
 	{
 		transform.position = position;
+	}
+
+	public void ChangeProperties(Sprite cloudSprite, float cloudDamage, float cloudMoveSpeed)
+	{
+		sprRen.sprite = cloudSprite;
+		startSprite = cloudSprite;
+		damage = cloudDamage;
+		moveSpeed = cloudMoveSpeed;
 	}
 
 	public IEnumerator ShieldTimer(float shieldTime)
@@ -89,18 +124,93 @@ public class Cloud : MonoBehaviour {
 
 	public IEnumerator PlayAnimation(string name, float waitTime)
 	{
-		anim.enabled = true;
-		boxCol.enabled = false;
-		anim.Play(name, -1, 0);
-		yield return new WaitForSeconds(waitTime);
-		anim.enabled = false;
-		boxCol.enabled = true;
-		sprRen.sprite = startSprite;
+		if (name == "Cloud Explosion")
+		{
+			anim.enabled = true;
+			boxCol.enabled = false;
+			anim.Play(name, -1, 0);
+			yield return new WaitForSeconds(waitTime);
+			boxCol.enabled = true;
+			sprRen.sprite = startSprite;
+			anim.enabled = false;
+		}
+		else if (name == "Cloud Attack")
+		{
+
+		}
+		else
+		{
+			anim.enabled = true;
+			anim.Play(name, -1, 0);
+			idle = true;
+		}
+
+		if (!spawned)
+		{
+			anim.enabled = false;
+		}
 	}
 
-	public void ChangeProperties(float cloudDamage, float cloudMoveSpeed)
+	public string GetCloudColor(Sprite cloudSprite)
 	{
-		damage = cloudDamage;
-		moveSpeed = cloudMoveSpeed;
+		string spriteName = cloudSprite.name;
+		string color = "";
+		for (int i = 0; i < spriteName.Length; i++)
+		{
+			if (spriteName[i] == ' ')
+			{
+				for (int j = i+1; j < spriteName.Length; j++)
+				{
+					color += spriteName[j];
+				}
+				return color;
+			}
+		}
+		return "Type: Not found";
+	}
+
+	public string GetCloudType(Sprite cloudSprite)
+	{
+		string spriteName = cloudSprite.name;
+		string typeName = "";
+		for (int i = 0; i < spriteName.Length; i++)
+		{
+			if (spriteName[i] == ' ')
+			{
+				for (int j = 0; j < i; j++)
+				{
+					typeName += spriteName[j];
+				}
+				return typeName;
+			}
+		}
+		return "Type: Not found";
+	}
+
+	public string SetCloudType(Sprite[] cloudForms, int randomIndex)
+	{
+		string typeName = "";
+
+		typeName = GetCloudType(cloudForms[randomIndex]);
+
+		// TODO: Set first letter to uppercase
+
+		return typeName;
+	}
+
+	// Checks which color and type the cloud is, so it can give the right idle animation name
+	public string WhichAnimation(Sprite cloudSprite)
+	{
+		string name = "";
+		string type = "";
+		string color = "";
+		Sprite sprite = sprRen.sprite;
+
+		type = GetCloudType(sprite);
+		color = GetCloudColor(sprite);
+
+		name = type + " " + color + " idle";
+
+		return name;
 	}
 }

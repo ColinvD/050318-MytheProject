@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1326185316591954}
+  m_IsPrefabParent: 1
+--- !u!1 &1326185316591954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4436688765269262}
+  - component: {fileID: 114132367911966112}
+  m_Layer: 0
+  m_Name: Reloader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4436688765269262
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326185316591954}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114132367911966112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326185316591954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9af48eb61b642c4d82209503666fe89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectiles:
+  - {fileID: 1031549294850418, guid: ce3a328ae445107459e5c2db99740195, type: 2}
+  - {fileID: 1110319667156606, guid: e4e13585f5e782643a72faab7fe8c814, type: 2}
+  - {fileID: 1861153092903810, guid: 34cd4bca81f2eed4da1aab0df7b744c9, type: 2}
+  - {fileID: 1385057936079192, guid: 8c0e42ced86144c4393f794089dc205a, type: 2}
+  viewSlotOne:
+  - {fileID: 1993200008553176, guid: 34fee0a19d846a74c89b342903cb3a1e, type: 2}
+  - {fileID: 1871437599367694, guid: 1dc3026f5138c7448b178c203adc50f8, type: 2}
+  - {fileID: 1205915527393528, guid: 7100171ca9c5b51418a81fb853de8935, type: 2}
+  - {fileID: 1922439681210554, guid: df94196d60eb9354a82802310061c0a0, type: 2}
+  viewSlotTwo:
+  - {fileID: 1339268675147608, guid: 8ed87fe98654105488c61ef94876c901, type: 2}
+  - {fileID: 1404916993532136, guid: 31c1e81e52599f1489c530da2f13a70f, type: 2}
+  - {fileID: 1794959398320554, guid: 80a2a19728ee68348883fa09cea5db6c, type: 2}
+  - {fileID: 1430632944257332, guid: 7013d6d6aec702b46bad5a42f57d25a7, type: 2}
+  viewSlotThree:
+  - {fileID: 1818912796366516, guid: 293f393588438b14fb9c2bff78dcc621, type: 2}
+  - {fileID: 1157324099387744, guid: fe9867f67e571a14686774598899e513, type: 2}
+  - {fileID: 1734200113934180, guid: 4e431e9bc60afae4398e1f714e60ef3f, type: 2}
+  - {fileID: 1513829744779132, guid: 1f4e16b593cda844cae1aa6e530724cb, type: 2}
+  projectileIsDown: 0

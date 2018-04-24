@@ -41,7 +41,6 @@ public class Patience : MonoBehaviour {
 
 	IEnumerator DecreasePatience()
 	{
-		Debug.Log("Decreased by " + totalDamage / divider);
 		data.currentPatience -= totalDamage / divider;
 		yield return new WaitForSeconds(decreaseTime);
 		StartCoroutine(DecreasePatience());

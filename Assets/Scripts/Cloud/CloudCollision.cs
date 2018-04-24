@@ -22,16 +22,6 @@ public class CloudCollision : MonoBehaviour {
 		patience = FindObjectOfType<Patience>();
 	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	private void OnTriggerEnter2D(Collider2D c)
 	{
 		if (c.transform.childCount > 0)
@@ -54,7 +44,7 @@ public class CloudCollision : MonoBehaviour {
 					{
 						if (c.tag == tag)
 						{
-							StartCoroutine(Die(1f));
+							StartCoroutine(Die(cloud.ExplosionTime));
 						}
 					}
 				}
@@ -79,8 +69,7 @@ public class CloudCollision : MonoBehaviour {
 		patience.DecreaseTotalDamage(cloud.damage);
 		count.DecreaseBy(cloud.CloudCount);
 		StartCoroutine(cloud.PlayAnimation("Cloud Explosion", waitTime));
-
-		// TODO: fix this error
+		
 		spawn.rowsContent[cloud.rowNumber][System.Array.IndexOf(spawn.rowsContent[cloud.rowNumber], cloud.gameObject)] = null;
 
 		data.IncreasePatience(data.increaseValue);

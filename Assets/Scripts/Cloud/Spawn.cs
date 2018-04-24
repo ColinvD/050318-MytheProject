@@ -14,10 +14,14 @@ public class Spawn : MonoBehaviour {
 	[SerializeField] private float spawnTime = 3;
 	[Tooltip("How many seconds before the shield goes down.")]
 	[SerializeField] private float shieldTime = 1;
-	[Tooltip("Forms that the clouds can have this level.")]
-	[SerializeField] private Sprite[] cloudForms;
+	[Header("Normal cloud damage")]
+	[SerializeField] private float normDamage;
+	[Header("Rain cloud damage")]
+	[SerializeField] private float rainDamage;
+	[Header("Thunder cloud damage")]
+	[SerializeField] private float thunDamage;
+	[SerializeField] private int level;
 
-	public List<GameObject> spawned;
 	public List<GameObject> notSpawned;
 	public GameObject[][] rowsContent;
 	public GameObject[] spawns;
@@ -27,30 +31,36 @@ public class Spawn : MonoBehaviour {
 	private List<GameObject> objects;
 	private GameObject rowContainer;
 	private Sprite cloudForm;
-	private int test = 1;
 	private int row;
+	private Sprite[] redCloudForms;
+	private Sprite[] blueCloudForms;
+	private Sprite[] pinkCloudForms;
+	private Sprite[] yellowCloudForms;
+	private SpriteHolder buffer;
 
-	// Use this for initialization
-	void Start () {
+	public Sprite[] RedCloudForms { get; set; }
+	public Sprite[] BlueCloudForms { get; set; }
+	public Sprite[] PinkCloudForms { get; set; }
+	public Sprite[] YellowCloudForms { get; set; }
+
+	void Start()
+	{
 		spawns = GameObject.FindGameObjectsWithTag(spawnsTag);
 		rowContainer = GameObject.FindGameObjectWithTag(rowContainerTag);
 		rowsContent = new GameObject[rowContainer.transform.childCount][];
-		spawned = new List<GameObject>();
 		notSpawned = new List<GameObject>();
 		objects = new List<GameObject>();
-		
+		buffer = Resources.Load<SpriteHolder>("Script Objects/Level " + level.ToString() + " Clouds");
+
 		InitArrList();
+		InitClouds(buffer);
 		StartCoroutine(SpawnCloud());
-	}
-	
-	// Update is called once per frame
-	void Update () {
 	}
 
 	public int RandomizeArrayIndex<T>(T[] array)
 	{
 		int randomIndex = 0;
-
+		
 		randomIndex = Random.Range(0, array.Length);
 
 		return randomIndex;
@@ -74,7 +84,7 @@ public class Spawn : MonoBehaviour {
 		return randomIndex;
 	}
 
-	// Spawn Object based on given array 'spawns'
+	// Spawns an object on spawn locations of the array 'spawns'
 	public void SpawnObject(GameObject gameObject)
 	{
 		int randomIndex = 0;
@@ -122,31 +132,24 @@ public class Spawn : MonoBehaviour {
 		}
 	}
 
+	// Spawns a cloud randomly chosen from the 'notSpawned' list
 	public IEnumerator SpawnCloud()
 	{
-		try
-		{
-			int randomIndex = RandomizeListIndex(notSpawned);
-			GameObject gameObject = notSpawned[randomIndex];
-			Cloud cloud = gameObject.GetComponent<Cloud>();
+		int randomIndex = RandomizeListIndex(notSpawned);
+		GameObject gameObject = notSpawned[randomIndex];
+		Cloud cloud = gameObject.GetComponent<Cloud>();
 
-			randomIndex = RandomizeArrayIndex(cloudForms);
+		randomIndex = RandomizeArrayIndex(GetArrayColor(cloud));
+		InitCloudProperties(cloud, cloud.SetCloudType(GetArrayColor(cloud), randomIndex), randomIndex, GetArrayColor(cloud));
 
-			// TODO: continue cloud randomizing by checking index name
+		SpawnObject(gameObject);
+		cloud.spawned = true;
+		cloud.move = true;
+		cloud.Idle = false;
+		StartCoroutine(cloud.ShieldTimer(shieldTime));
 
-			SpawnObject(gameObject);
-			cloud.spawned = true;
-			cloud.move = true;
-			StartCoroutine(cloud.ShieldTimer(shieldTime));
-
-			// Update lists to keep track of spawned objects
-			//spawned.Add(gameObject);
-			notSpawned.Remove(gameObject);
-		}
-		catch
-		{
-			//Debug.LogWarning("No clouds to spawn");
-		}
+		// Update lists to keep track of spawned objects
+		notSpawned.Remove(gameObject);
 		
 		yield return new WaitForSeconds(spawnTime);
 		
@@ -192,28 +195,6 @@ public class Spawn : MonoBehaviour {
 		return row;
 	}
 	
-	public void InitArrList()
-	{
-		// Initializes all clouds into 'objects[]'
-		for (int i = 0; i < rowContainer.transform.childCount; i++)
-		{
-			for (int j = 0; j < rowContainer.transform.GetChild(i).childCount; j++)
-			{
-				GameObject cloud = rowContainer.transform.GetChild(i).transform.GetChild(j).gameObject;
-				notSpawned.Add(cloud);
-			}
-		}
-
-		// Initializes all clouds into 'notSpawned[]'
-		for (int i = 0; i < objects.Count; i++)	notSpawned.Add(objects[i]);
-
-		// Initializes all rows into 'rowsContent[]'
-		for (int i = 0; i < rowsContent.Length; i++)
-		{
-			rowsContent[i] = new GameObject[maxRowQuantity];
-		}
-	}
-
 	public int CheckEmptyRowIndex(GameObject[][] array, int rowNumber)
 	{
 		int i;
@@ -232,8 +213,6 @@ public class Spawn : MonoBehaviour {
 		if (!IsListEmpty(notSpawned))
 		{
 			rowIndex = 99;
-			//Debug.Log("Not empty " + test);
-			test++;
 		}
 		else
 		{
@@ -264,12 +243,78 @@ public class Spawn : MonoBehaviour {
 	public void AddCloudTo(GameObject cloud, GameObject[][] array, int rowNumber)
 	{
 		int emptyIndex = CheckEmptyRowIndex(rowsContent, rowNumber);
-		//Debug.Log("row: " + rowNumber + " index: " + emptyIndex);
 		array[rowNumber][emptyIndex] = cloud;
 	}
 
-	private void InitCloudProperties(int index)
+	private Sprite[] GetArrayColor(Cloud cloud)
 	{
+		Sprite[] array = null;
+		switch (cloud.tag)
+		{
+			case "Red":
+				array = redCloudForms;
+				break;
+			case "Blue":
+				array = blueCloudForms;
+				break;
+			case "Pink":
+				array = pinkCloudForms;
+				break;
+			case "Yellow":
+				array = yellowCloudForms;
+				break;
+		}
 
+		return array;
 	}
+
+	private void InitCloudProperties(Cloud cloud, string cloudType, int index, Sprite[] array)
+	{	
+		switch (cloudType)
+		{
+			case "gewoon":
+				cloud.ChangeProperties(array[index], normDamage, cloud.moveSpeed);
+				break;
+			case "regen":
+				cloud.ChangeProperties(array[index], rainDamage, cloud.moveSpeed);
+				break;
+			case "donder":
+				cloud.ChangeProperties(array[index], thunDamage, cloud.moveSpeed);
+				break;
+			default:
+				print("Type: not found");
+				break;
+		}
+	}
+
+	public void InitClouds(SpriteHolder buffer)
+	{
+		redCloudForms = buffer.redCloudForms;
+		blueCloudForms = buffer.blueCloudForms;
+		pinkCloudForms = buffer.pinkCloudForms;
+		yellowCloudForms = buffer.yellowCloudForms;
+	}
+
+	public void InitArrList()
+	{
+		// Initializes all clouds into 'objects[]'
+		for (int i = 0; i < rowContainer.transform.childCount; i++)
+		{
+			for (int j = 0; j < rowContainer.transform.GetChild(i).childCount; j++)
+			{
+				GameObject cloud = rowContainer.transform.GetChild(i).transform.GetChild(j).gameObject;
+				objects.Add(cloud);
+			}
+		}
+
+		// Initializes all clouds into 'notSpawned[]'
+		for (int i = 0; i < objects.Count; i++) notSpawned.Add(objects[i]);
+
+		// Initializes all rows into 'rowsContent[]'
+		for (int i = 0; i < rowsContent.Length; i++)
+		{
+			rowsContent[i] = new GameObject[maxRowQuantity];
+		}
+	}
+
 }
