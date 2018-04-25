@@ -10,25 +10,25 @@ public class CloudChecker : MonoBehaviour {
     [SerializeField]
     private TutorialChanger changer;
 
-    void Start()
-    {
-        HasSeen("hello");
-    }
+    //void Start()
+    //{
+    //    HasSeen("hello");
+    //}
 
-    public bool HasSeen(string cloudType)
+    public void HasSeen(string cloudType)
     {
-        bool hasSeen = false;
+        //bool hasSeen = false;
         for (int i = 0; i < cloudTutorial.Count; i++)
         {
             if (cloudTutorial[i].type == cloudType /*&& cloudTutorial[i].seen == false*/)
             {
                 cloudTutorial.Remove(cloudTutorial[i]);
                 changer.SetTutorialMessage(cloudType);
-                hasSeen = true;
+                //hasSeen = true;
                 break;
             }
         }
-        return hasSeen;
+        //return hasSeen;
     }
 }
 

@@ -51,6 +51,8 @@ public class Spawn : MonoBehaviour {
 		notSpawned = new List<GameObject>();
 		objects = new List<GameObject>();
 		buffer = Resources.Load<SpriteHolder>("Script Objects/Level " + level.ToString() + " Clouds");
+        //Debug.Log(Resources.Load<SpriteHolder>("Script Objects/Level " + level.ToString() + " Clouds"));
+        Debug.Log(level.ToString());
 
 		InitArrList();
 		InitClouds(buffer);

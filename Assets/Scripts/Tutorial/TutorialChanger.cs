@@ -14,6 +14,10 @@ public class TutorialChanger : MonoBehaviour {
     void Start()
     {
         followTutorial = FindObjectOfType<FollowTutorial>();
+        if (followTutorial == null)
+        {
+            followTutorial = gameObject.AddComponent<FollowTutorial>();
+        }
     }
 
     public void SetTutorialMessage(string type)
@@ -22,11 +26,14 @@ public class TutorialChanger : MonoBehaviour {
         {
             switch (type)
             {
-                case "hello":
+                case "gewoon":
                     Instantiate(tutorialPrefabs[0], canvas.transform);
                     break;
-                case "hi":
+                case "regen":
                     Instantiate(tutorialPrefabs[1], canvas.transform);
+                    break;
+                case "donder":
+                    Instantiate(tutorialPrefabs[2], canvas.transform);
                     break;
             }
             FindObjectOfType<StopTime>().ChangeTime(0);

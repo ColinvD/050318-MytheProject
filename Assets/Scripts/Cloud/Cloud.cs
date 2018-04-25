@@ -52,6 +52,7 @@ public class Cloud : MonoBehaviour {
 	SpriteRenderer sprRen;
 	Sprite startSprite;
 	BoxCollider2D boxCol;
+    CloudChecker checker;
 
 	private void Awake()
 	{
@@ -59,6 +60,7 @@ public class Cloud : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		sprRen = GetComponent<SpriteRenderer>();
 		boxCol = GetComponent<BoxCollider2D>();
+        checker = FindObjectOfType<CloudChecker>();
 	}
 	
 	void Start()
@@ -144,11 +146,15 @@ public class Cloud : MonoBehaviour {
 			anim.Play(name, -1, 0);
 			idle = true;
 		}
-
+        
 		if (!spawned)
 		{
 			anim.enabled = false;
 		}
+        else if (spawned)
+        {
+            checker.HasSeen(GetCloudType(sprRen.sprite));
+        }
 	}
 
 	public string GetCloudColor(Sprite cloudSprite)

@@ -12,7 +12,17 @@ public class OpenDestroy : MonoBehaviour {
         timeManager = FindObjectOfType<StopTime>();
         timeManager.ChangeTime(0);
     }
-
+    void Update()
+    {
+        if (Time.timeScale == 1)
+        {
+            timeManager.ChangeTime(0);
+        }
+    }
+    private void OnMouseDown()
+    {
+        NextOne();
+    }
     public void NextOne()
     {
         nextTutorial.SetActive(true);
