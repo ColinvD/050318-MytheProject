@@ -7,7 +7,7 @@ public class Counter : MonoBehaviour {
 
 	[SerializeField] private int curToGo = 30;
 	[SerializeField] private Text count;
-	[SerializeField] private int winScene = 3;
+	[SerializeField] private GameObject winPanel;
 
 	public int CurToGO { get; set; }
 
@@ -21,7 +21,7 @@ public class Counter : MonoBehaviour {
 		if (curToGo < 1)
 		{
 			// WIN
-			FindObjectOfType<ChangeScene>().SwitchScene(winScene);
+			winPanel.SetActive(true);
 		}
 	}
 

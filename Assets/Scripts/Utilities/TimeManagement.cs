@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StopTime : MonoBehaviour {
+public class TimeManagement : MonoBehaviour {
     
     public void ChangeTime(int speed)
     {

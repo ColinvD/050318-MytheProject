@@ -6,14 +6,15 @@ public class Data : MonoBehaviour {
 
     public float currentPatience = 100;
 	public int increaseValue = 5;
-	[SerializeField] private int loseScene = 2;
+	[SerializeField] private GameObject losePanel;
 
 	private void Update()
 	{
 		if (currentPatience < 0)
 		{
 			currentPatience = 0;
-			FindObjectOfType<ChangeScene>().SwitchScene(loseScene);
+			losePanel.SetActive(true);
+			FindObjectOfType<TimeManagement>().ChangeTime(0);
 		}
 	}
 

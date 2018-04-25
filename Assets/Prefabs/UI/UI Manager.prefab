@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4439763046708952}
   - component: {fileID: 114806505734949944}
   - component: {fileID: 114177128640797900}
-  - component: {fileID: 114159116046304196}
   - component: {fileID: 114105656383068826}
+  - component: {fileID: 114159116046304196}
   - component: {fileID: 114567302871242778}
   m_Layer: 0
   m_Name: UI Manager
@@ -57,6 +57,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curToGo: 20
   count: {fileID: 0}
+  winPanel: {fileID: 0}
 --- !u!114 &114159116046304196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,7 +86,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPatience: 100
-  increaseValue: 5
+  increaseValue: 10
+  losePanel: {fileID: 0}
 --- !u!114 &114567302871242778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,8 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d405b1e1804a6eb438259e9459142eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDamage: 5
-  decreaseTime: 3
+  maxDamage: 8
+  decreaseTime: 0.1
+  divider: 20
 --- !u!114 &114806505734949944
 MonoBehaviour:
   m_ObjectHideFlags: 1
