@@ -152,7 +152,7 @@ public class Spawn : MonoBehaviour {
 		notSpawned.Remove(gameObject);
 		
 		yield return new WaitForSeconds(spawnTime);
-		
+
 		StartCoroutine(SpawnCloud());
 	}
 
@@ -209,7 +209,7 @@ public class Spawn : MonoBehaviour {
 				return rowIndex = i;
 			}
 		}
-		
+
 		if (!IsListEmpty(notSpawned))
 		{
 			rowIndex = 99;

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ObjectActivator : MonoBehaviour {
 
-    [SerializeField] private GameObject go;
+    [SerializeField] private GameObject panel;
 
 	public void Show()
     {
-        go.SetActive(!go.active);
+		panel.SetActive(!panel.active);
     }
 }
